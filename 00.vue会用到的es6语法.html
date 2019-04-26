@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <ul>
+    <li><a href="https://blog.csdn.net/itpinpai/article/details/52182093">箭头函数</a></li>
+    <pre>
+    function (){
+      alert()
+    }
+    相当于
+    ()=>{
+      alert()
+    }
+    </pre>
+    <br>带参数的箭头函数
+    <pre>
+    function (a,b){
+      alert(111)
+    }
+    相当于
+    (a,b)=>{
+      alert()
+    }
+    </pre>
+    <li>let 和 const 命令</li>
+    <a href="http://es6.ruanyifeng.com/#docs/let">http://es6.ruanyifeng.com/#docs/let</a>
+    <li>Set 和 Map 数据结构</li>
+    <a href="http://es6.ruanyifeng.com/#docs/set-map">http://es6.ruanyifeng.com/#docs/set-map</a>
+    <li>promise异步编程(vue模板源码中用到)</li>
+    <a href="https://segmentfault.com/a/1190000011652907">https://segmentfault.com/a/1190000011652907</a><br>
+    <a href="https://www.cnblogs.com/whybxy/p/7645578.html">https://www.cnblogs.com/whybxy/p/7645578.html</a><br>
+    <a href="https://blog.csdn.net/weiwenwen6/article/details/80418404">https://blog.csdn.net/weiwenwen6/article/details/80418404</a><br>
+    <a href="https://www.jianshu.com/p/1ec8d1c4e287">https://www.jianshu.com/p/1ec8d1c4e287</a><br>
+    <a href="https://www.cnblogs.com/guoyeqiang/p/8243838.html">https://www.cnblogs.com/guoyeqiang/p/8243838.html</a><br>
+    <li>对象单体模式</li>
+    为了解决箭头函数this指向的问题 推出来一种写法 对象的单体模式
+    <pre>
+        var person = {
+          name:'tom',
+           age:18,　　
+          fav:function(){       
+              console.log(this.name)
+          }
+        }
+        和下面相同
+        var person = {
+          name:'tom',
+          age:18,
+          fav(){
+               // 当前this指向了定义时所在的对象（window）
+               console.log(this.name);
+            }
+          }
+
+    </pre>
+  </ul>
+  <script>
+
+  </script>
+</body>
+
+</html>

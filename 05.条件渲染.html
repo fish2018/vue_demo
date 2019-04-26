@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="vue.js"></script>
+</head>
+
+<body>
+  <div id="demo">
+    <ul>
+      <li>v-if v-else-if v-else</li>
+      <div v-if="type === 'A'">
+        A
+      </div>
+      <div v-else-if="type === 'B'">
+        B
+      </div>
+      <div v-else-if="type === 'C'">
+        C
+      </div>
+      <div v-else>
+        Not A/B/C
+      </div>
+      <li>v-show</li>
+      <h1 v-show="ok">Hello!</h1>
+      <li>v-if 有更高的切换开销，而 v-show 有更高的初始渲染开销。因此，如果需要非常频繁地切换，则使用 v-show 较好；如果在运行时条件很少改变，则使用 v-if 较好。</li>
+      <li>当 v-if 与 v-for 一起使用时，v-for 具有比 v-if 更高的优先级。</li>
+
+    </ul>
+  </div>
+
+  <script>
+    var vm = new Vue({
+      el: '#demo', //绑定元素
+      data: {
+        msg: '插值文本',
+        type: 'A',
+        ok: true
+      },
+      methods: {
+        m: () => {
+          alert('hello world')
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

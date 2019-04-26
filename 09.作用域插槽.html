@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="vue.js"></script>
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <child :propitems="items">
+      <li slot="slotname" slot-scope="scopename">
+        scopename => {{scopename}} <br> scopename.childitemtext.text => {{scopename.childitemtext.text}}
+        <!-- scopename => {{scopename}} <br> scopename.childitemtext => {{scopename.childitemtext}} -->
+      </li>
+    </child>
+  </div>
+  <script>
+
+    Vue.component('child', {
+      props: ["propitems"],
+      template: `
+          <ul>
+            <slot name="slotname" v-for="item in propitems" :childitemtext="item"></slot> 
+            <!-- <slot name="slotname" v-for="item in propitems" :childitemtext="item.text"></slot> -->
+          </ul>
+        `
+    });
+
+    new Vue({
+      el: '#app',
+      data: {
+        items: [
+          { text: '实例1' },
+          { text: '实例2' },
+          { text: '实例3' },
+          { text: '实例4' },
+          { text: '实例5' },
+          { text: '实例6' }
+        ]
+      }
+    })
+  </script>
+</body>
+
+</html>

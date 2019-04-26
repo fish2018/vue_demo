@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div class="app">
+        <li>组件创建，组件复用</li>
+        <my-component></my-component>
+        <my-component></my-component>
+        <li>父=>子组件传值prop</li>
+        <blog-post title="My journey with Vue"></blog-post>
+        <a href=https://blog.csdn.net/m0_37479246/article/details/78903535>prop参考</a>
+        <li>子=>父组件传值$emit</li>
+        <span>子组件使用内建的$emit方法通过事件改变父组件数据属性<br>子组件通过事件enlarge-text来更改父组件的postFontSize</span>
+        <div :style="{ fontSize: postFontSize + 'em' }">
+            <blog-post2 v-for="post2 in posts" v-bind:childpost2=post2 v-on:enlarge-text="postFontSize += 0.1"></blog-post2>
+            <!-- <blog-post2 v-for="post2 in posts" v-bind:childpost2=post2 v-on:enlarge-text="postFontSize += $event"></blog-post2> -->
+        </div>
+        <li>插槽slot</li>
+        <alert-box>
+            Something bad happened.
+        </alert-box>
+        <br>
+    </div>
+    <script>
+        Vue.component('myComponent', {
+            template: `<h2>全局组件创建，可复用</h2>`
+        })
+        Vue.component('blog-post', {
+            props: ['title'],
+            template: '<h3>{{ title }}</h3>'
+        })
+        Vue.component('blog-post2', {
+            props: ['childpost2'],
+            template: `
+                <div class="blog-post2">
+                <h3>{{ childpost2.title }}</h3>
+                <button v-on:click="$emit('enlarge-text')">放大:通过事件向父级组件发送消息</button>
+                <button v-on:click="$emit('enlarge-text',10)">放大:使用事件抛出一个值</button>
+                <div v-html="childpost2.content"></div>
+                </div>
+            `
+        })
+        Vue.component('alert-box', {
+            template: `
+                <div class="demo-alert-box">       
+                <strong>Error!</strong>
+                <slot>插槽默认内容</slot>
+                </div>
+            `
+        })
+
+        var vm = new Vue({
+            el: '.app',
+            data: {
+                posts: [
+                    { 'id': 1, 'title': 'hello标题', 'content': '<h5>hello内容</h5>' },
+                    { 'id': 2, 'title': 'sunmi标题', 'content': '<h5>sunmi内容</h5>' }
+                ],
+                postFontSize: 1
+            }
+        })
+
+    </script>
+</body>
+
+</html>

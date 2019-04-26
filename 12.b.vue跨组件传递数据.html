@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="vue.js"></script>
+  <script src="vuex.js"></script>
+  <script src="es6-promise.auto.js"></script>
+  <script src="vue-router.js"></script>
+</head>
+
+<body>
+  <div class="app">
+    <router-link to="/home">主页 </router-link>
+    <router-link to="/news">新闻 </router-link>
+    <router-view>
+    </router-view>
+    <div>
+      <button @click="mapaction">按钮</button>
+      <br><span>按钮click事件 【mapaction】 => action 【incrementAsync】 => mutaions【increment】=> state 【count】</span>
+    </div>
+  </div>
+
+  <script>
+
+    var store = new Vuex.Store({
+
+      state: {
+        count: 0
+      },
+
+      mutations: {
+        increment(state) {
+          state.count++
+        }
+      },
+
+      actions: {
+        incrementAsync({ commit }) {
+          commit('increment')
+        }
+      },
+    })
+
+    var Home = { template: `<h1>我是主页 {{this.$store.state.count}} </h1>` };
+    var News = { template: `<h1>我是新闻页 {{this.$store.state.count}} </h1>` };
+
+    const routes = [
+      {
+        path: '/home',
+        component: Home
+      },
+      {
+        path: '/news',
+        component: News
+      },
+      {
+        path: '*',
+        component: Home
+      }
+    ]
+
+    const router = new VueRouter({
+      routes
+    });
+
+    const vm = new Vue({
+      el: '.app',
+      router,
+      store,
+      methods: {
+        mapaction() {
+          store.dispatch('incrementAsync')
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

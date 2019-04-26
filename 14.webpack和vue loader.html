@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="vue.js"></script>
+  <script src="vue-router.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+  <ul>
+    <li>vue-loader 是一个加载器，能把如下格式的 Vue 组件转化成JavaScript模块。</li>
+    <img src="vue.png" height="600" width="600">
+    <li>Webpack 是一个模块打包工具。在开发中，它把一堆文件中每个都作为一个模块处理，找出它们间的依赖关系，并打包成待发布的静态资源。</li>
+    <img src="webpack.png" height="400" width="600">
+    <li>Vue 组件规格</li>
+    *.vue 文件是用户用 HTML-like 的语法编写的 Vue 组件。每个 *.vue 文件都包括三部分 &lt;template&gt;, &lt;script&gt; 和 &lt;style&gt;
+    <textarea rows="20" cols="80" style="color: #3499CC;background-color:black;">
+        <template>
+          <div class="example">{{ msg }}</div>
+        </template>
+
+        <script>
+          export default {
+            data() {
+              return {
+                msg: 'Hello world!'
+              }
+            }
+          }
+        </script>
+
+        <style>
+          .example {
+            color: red;
+          }
+        </style>
+    </textarea>
+    <li>脚手架工具vue-cli</li>
+    创建项目的时候推荐使用脚手架工具，可以用 vue-loader 和 vue-cli，命令行如下：
+    <pre>
+        npm install -g vue-cli
+        vue init webpack hello-vue
+        cd hello-vue
+        npm install --registry https://registry.npm.taobao.org
+        npm run dev
+    </pre>
+    <li><a href="https://www.jianshu.com/p/7006a663fb9f">项目结构说明</a></li>
+  </ul>
+
+</body>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="vue.js"></script>
+</head>
+
+<body>
+  <div id="demo">
+    <ul>
+      <li>插值：文本 双大括号</li>
+      <h2 v-text=msg></h2>
+      <h1 style="color:red">{{msg}}</h1>
+      <li>插值：原始html</li>
+      直接显示：{{msg2}}
+      <br> 使用v-html: <span v-html=msg2></span>
+      <li>指令：v-开头 如v-if v-model v-on v-bind等<br>
+        <span>绑定属性 v-bind简写冒号:</span>
+        <button v-bind:disabled="btn">按钮</button>
+        <button :disabled="!btn">按钮</button><br>
+        <span>监听DOM事件 v-on简写@</span>
+        <button v-on:click="m">按钮</button>
+        <button @click="m">按钮</button><br>
+      </li>
+    </ul>
+  </div>
+
+  <script>
+    var vm = new Vue({
+      el: '#demo', //绑定元素
+      data: {
+        msg: '插值文本',
+        msg2: '<span style="color: red">测试v-html</span>',
+        btn: false
+      },
+      methods: {
+        m: () => {
+          alert('hello world')
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

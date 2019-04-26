@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="vue.js"></script>
+</head>
+
+<body>
+  <div id="demo">
+    <ul>
+      <li>
+        <div v-bind:class="{ active: isActive }">
+          v-bind或:class="{类名:ture/false}"<br>true时class加入指定类名，false不加入
+        </div>
+      </li>
+
+      <li>
+        <div v-bind:style="styleObject">v-bind或:style="data中定义的样式名"</div>
+      </li>
+      <li></li>
+    </ul>
+  </div>
+
+  <script>
+    var vm = new Vue({
+      el: '#demo', //绑定元素
+      data: {
+        msg: '插值文本',
+        isActive: false,
+        styleObject: {
+          color: 'red',
+          fontSize: '13px'
+        }
+      },
+      methods: {
+        m: () => {
+          alert('hello world')
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

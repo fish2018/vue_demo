@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="vue.js"></script>
+  <script src="vue-router.js"></script>
+</head>
+
+<body>
+  <div class="app">
+    <router-link to="/home">主页</router-link>
+    <router-link to="/news">新闻</router-link>
+    <router-link :to="{ name: 'user', params: { userId: 123 }}">用户</router-link> <!-- v-bind:to= -->
+    <button @click="musicroute">音乐</button>
+    <button @click="countryroute">国家</button>
+    <button @click="goroute">上一页</button>
+    <li>编程式的导航</li>
+    <span>注意：在 Vue 实例内部，你可以通过 $router 访问路由实例。因此你可以调用 this.$router.push<br>/test跳转到name:'mynews'的路由</span>
+    <li>导航守卫</li>
+    <a href="http://www.php.cn/js-tutorial-398770.html">http://www.php.cn/js-tutorial-398770.html</a><br>
+    <a href="https://blog.csdn.net/gao_xu_520/article/details/79738051">https://blog.csdn.net/gao_xu_520/article/details/79738051</a>
+    <li><a href="https://blog.csdn.net/cofecode/article/details/79181894">路由元信息</a></li>
+    <router-view></router-view>
+  </div>
+
+  <script>
+    // 01、创建组件
+    var Home = {
+      template: `<h2>我是主页</h2>`
+    };
+    var News = {
+      // 需要在模板中使用<router-view>标签来显示子组件
+      template: `
+      <div>
+        <h2>我是新闻页</h2>
+        <h2>下面是详情导航</h2> 
+        <router-link to='/news/detail'>新闻详情导航</router-link>
+        <router-view></router-view>
+      </div>
+      `
+    };
+    var Detail = {
+      template: `<p>新闻详情。。。</p>`
+    };
+    var Music = {
+      template: `<h2>我是音乐页</h2>`
+    };
+    var Country = {
+      template: `<h2>我是国家页</h2>`
+    };
+    var User = {
+      template: `<h2>我是用户页</h2>`
+    }
+    // 02、配置路由
+    const routes = [
+      {
+        path: '/home',
+        component: Home
+      },
+      {
+        path: '/news',
+        component: News,
+        alias: '/mynews',
+        name: 'mynews', //别名
+        children: [
+          {
+            path: 'detail',
+            component: Detail
+          }
+        ]
+      },
+      {
+        path: '/music',
+        component: Music
+      },
+      {
+        path: '/country/:id',
+        name: 'country',
+        component: Country
+      },
+      {
+        path: '/user/:userId',//命名路由
+        name: 'user',
+        component: User
+      },
+      {
+        path: '/test',
+        redirect: { name: 'mynews' }
+      },
+      {
+        path: '*',
+        redirect: '/home' //访问的所有不存在的url重定向到主页
+      },
+
+    ]
+    // 03、生成路由实例
+    const router = new VueRouter({
+      // mode: 'history',
+      routes //相当routes:routes
+    });
+    // 04、将路由实例挂载到vue实例上
+    const vm = new Vue({
+      el: '.app',
+      router,
+      methods: {
+        musicroute() {
+          router.push({ path: `/music` })
+          // router.push({ path: '/music', query: { id: 111 } })
+        },
+        countryroute() {
+          router.push({ name: 'country', params: { id: 123 } })
+          // const id = 2
+          // router.push({ path: `/country/${id}` })
+        },
+        goroute() {
+          router.go(-1)
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

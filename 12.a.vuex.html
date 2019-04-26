@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="vue.js"></script>
+  <script src="vuex.js"></script>
+  <script src="es6-promise.auto.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <ul>
+      <li>为什么使用vuex</li>
+      <span>因为父组件可以通过 props 给子组件传递参数 , 但子组件内却不能直接修改父组件传过来的参数<br>跨组件传递数据</span>
+    </ul>
+
+    <mycom>{{this.$store.state.count}}</mycom>
+    <button @click="mapaction">按钮</button>
+    <br><span>按钮click事件 【mapaction】 => action 【incrementAsync】 => mutaions【increment】=> state 【count】</span>
+  </div>
+
+
+  <script>
+    // 01、创建组件
+    Vue.component('mycom', { template: `<span>组件内数据修改： <slot></slot></span>` })
+    // 02、创建store实例
+    var store = new Vuex.Store({
+      // 02.a 创建state
+      state: {
+        count: 0
+      },
+      // 02.b 创建mutation ,编写修改state值的函数
+      mutations: {
+        increment(state) {
+          state.count++
+        }
+      },
+      // 02.c 创建action ,编写通过commit触发mutation的函数
+      actions: {
+        incrementAsync({ commit }) {
+          commit('increment') // 02.d 
+        }
+      },
+    })
+    // 03、实例化Vue对象，并加入store对象
+    var app = new Vue({
+      el: '#app',
+      store,
+      methods: {
+        // 04、编写通过store.dispach触发action的函数 ,这里通过mapaction触发incrementAsync
+        mapaction() {
+          store.dispatch('incrementAsync')
+        }
+      }
+    })
+
+  </script>
+
+</body>
+
+</html>

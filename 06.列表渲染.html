@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="vue.js"></script>
+</head>
+
+<body>
+  <div id="demo">
+    <ul id="example-1">
+      <li v-for="user,index in users">
+        {{index}} -{{ user.username}} -{{user.age}}
+      </li>
+    </ul>
+    <my-component v-bind:childuser="user" v-for="user in users">11111111</my-component><br>
+    <span>v-for用在组件时，任何数据都不会被自动传递到组件里，因为组件有自己独立的作用域。为了把迭代数据传递到组件里，我们要用 props</span>
+    <a href=https://blog.csdn.net/m0_37479246/article/details/78903535>prop参考</a>
+  </div>
+
+  <script>
+    Vue.component('my-component', {
+      props: ['childuser'],
+      // props: { childuser: Object },//prop验证
+      template: `<ul><li>{{childuser.username}}</li></ul>`
+    })
+    var vm = new Vue({
+      el: '#demo', //绑定元素
+      data: {
+        users: [
+          { username: 'tom', age: 18 },
+          { username: 'jack', age: 10 },
+          { username: 'ryan', age: 15 },
+          { username: 'rina', age: 20 }
+        ]
+      }
+    })
+  </script>
+</body>
+
+</html>

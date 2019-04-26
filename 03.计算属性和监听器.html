@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="vue.js"></script>
+</head>
+
+<body>
+  <div id="demo">
+    <ul>
+      <li>
+        <h3>对于任何复杂逻辑，你都应当使用计算属性</h3>
+        计算属性computed
+        <br> 原始文本 {{msg}}
+        <br> 逆转文本 {{msg2}}
+      </li>
+      <li>
+        <h3>computed计算属性</h3>
+        <br>输入数字：<input v-model="num">
+        <br> <input style="width: 400px" v-model="res"></input>
+      </li>
+      <li>
+        <h3>methods和computed缓存问题</h3>
+        <br>method每次事件都会触发<button @click="now">methods</button>
+        <br>computed根据依赖的缓存计算 {{now1}}
+      </li>
+      <li>
+        <h3>侦听器v-model只能用于表单控件,数据双向绑定</h3>
+      </li>
+      <br><input style="width: 400px" v-model="num"></input>
+      <br>{{num}}
+      <li>
+        <br><input style="width: 400px" v-model="num2"></input>
+      </li>
+    </ul>
+  </div>
+
+  <script>
+    var vm = new Vue({
+      el: '#demo', //绑定元素
+      data: {
+        msg: 'sunmi hello world',
+        num: 1,
+        num2: 100
+      },
+      methods: {
+        now: () => {
+          alert(Date.now())
+        }
+      },
+      computed: {
+        msg2() {
+          return this.msg.split('').reverse().join('')
+        },
+        res: function () {
+          return `computed将输入的数字乘以2：+${this.num} x 2 = ${this.num * 2}`
+        },
+        now1: function () {
+          return Date.now()
+        }
+      },
+      watch: {
+        num2: () => {
+          alert("使用watch侦听属性,当需要在数据变化时执行异步或开销较大的操作时，这个方式是最有用的。")
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

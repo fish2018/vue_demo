@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="vue.js"></script>
+</head>
+
+<body>
+  <div id="demo">
+    <ul>
+      <li>组件名</li>
+      <my-component-name1></my-component-name1>
+      <!-- <MyComponentName></MyComponentName> //这种方式是报错的 -->
+      <br>
+      <my-component-name2></my-component-name2>
+      <li>局部注册</li>
+      <my-component-name3></my-component-name3>
+      <br>
+      <mycom4>hello mycom4</mycom4>
+      <br>
+      <mycom5>
+        <h4 slot="header">这个是具名插槽slot=header <a href="https://blog.csdn.net/m0_37690351/article/details/78059979">https://blog.csdn.net/m0_37690351/article/details/78059979</a></h4>
+      </mycom5>
+      <li>在当前vue组件里，从外部引入组件,只能在vue后缀文件中</li>
+      <pre>
+        import hello from './hello'
+        var vm = new Vue({
+          el: '#demo',
+          components: {
+            hello
+          }
+        })
+
+      </pre>
+    </ul>
+  </div>
+
+  <script>
+    //组件命名方式有两种：一、使用 kebab-case（短横线分隔命名）;全局注册
+    Vue.component('my-component-name1', { template: '<span>当使用 kebab-case (短横线分隔命名) 定义一个组件时，你也必须在引用这个自定义元素时使用 kebab-case，例如 &lt;my-component-name1&gt;。</span>' })
+    //二、使用 PascalCase (驼峰式命名) ;全局注册
+    Vue.component('MyComponentName2', { template: '<span>当使用 PascalCase (驼峰式命名) 定义一个组件时，你在引用这个自定义元素时两种命名法都可以使用。也就是说 &lt;my-component-name2&gt; 和 &lt;MyComponentName2&gt;都是可接受的。注意，尽管如此，直接在 DOM (即非字符串的模板) 中使用时只有 kebab-case 是有效的。</span>' })
+    //局部注册
+    var MyComponentName3 = { template: '<span>局部注册3</span>' }
+    var mycom4 = {
+      template: `
+        <div class="mycom4">
+        <slot>插槽默认内容</slot>  
+        <span>局部注册4</span>
+        </div>
+      `
+    }
+    var mycom5 = {
+      template: `
+        <div class="mycom5">
+          <header>
+            <slot name="header">具名插槽</slot>
+          </header>
+          局部注册组件5嵌套子组件4 => <mycom4></mycom4>
+        </div>
+      `,
+      components: { mycom4 }
+    }
+    var vm = new Vue({
+      el: '#demo', //绑定元素
+      components: {
+        "my-component-name3": MyComponentName3,
+        mycom4,//组件名和局部注册的组件元素名一致时可简写
+        mycom5,
+      }
+    })
+  </script>
+</body>
+
+</html>
